@@ -16,22 +16,24 @@ work_compile3
 %% guild data
   %  [guildmat, guildlist] = Spp2Guild( bugdata, guild2, 0 );
 %% month, latitude info
-    info = sampledata(:, [1, 2] );
+    info = [Tplant.Monthcode, Tsite.decimallatitude(Tplant.Sitecode)];
 %% summing sample data to a site-month scales
-    [LplantST] = metacommunity( Lplant, sampledata(:, [1, 2] ), 'mean' ) ;
-    [t_matST, t_infoST] = metacommunity( taxonmat, sampledata(:, [1, 2] ) ) ; % left the transformation (if any) to R
-    [g_matST, g_infoST] = metacommunity( guildmat, sampledata(:, [1, 2] ) ) ;
+    [LplantST] = metacommunity( Lplant, Tplant{:, {'Sitecode', 'Monthcode'}}, 'mean' ) ;
+   % [t_matST, t_infoST] = metacommunity( taxonmat, sampledata(:, [1, 2] ) ) ; % left the transformation (if any) to R
+   % [g_matST, g_infoST] = metacommunity( guildmat, sampledata(:, [1, 2] ) ) ;
 %% remove the datarow with NAN
              ind_in = find(any(isnan(plantdata), 2)==0); % index of "in" data
 %% write to csv
-csvwrite( 'Rfiles/Rdata/Yt_PL.csv', taxonmat(ind_in, :) ); % taxa data, by plant (sample, beat)
-csvwrite( 'Rfiles/Rdata/Yt_ST.csv', t_matST ); % taxa data, sumed over site and time
+csvwrite( [ rdatapath '/Yt_PL.csv'], taxonmat(ind_in, :) ); % taxa data, by plant (sample, beat)
+csvwrite( [ rdatapath '/Yt_ST.csv'], t_matST ); % taxa data, sumed over site and time
 
-csvwrite( 'Rfiles/Rdata/Yg_PL.csv', guildmat(ind_in, :)  ); % guild data, by plant (sample, beat)
-csvwrite( 'Rfiles/Rdata/Yg_ST.csv', g_matST ); % guild data, sumed over site and time
+csvwrite([ rdatapath '/Yg_PL.csv'], guildmat(ind_in, :)  ); % guild data, by plant (sample, beat)
+csvwrite([ rdatapath  '/Yg_ST.csv'], g_matST ); % guild data, sumed over site and time
 
-csvwrite( 'Rfiles/Rdata/Xs_PL.csv',  [siteinfo(info(ind_in, 1), 2)   info(ind_in,2)] ); % time-latitude data, by plant (sample, beat)
-csvwrite( 'Rfiles/Rdata/Xs_ST.csv', [siteinfo(t_infoST(:,1), 2)   t_infoST(:,2)]); % time-latitude data, sumed over site and time
+csvwrite( [ rdatapath '/Xs_PL.csv'],  info(ind_in, :) ); % time-latitude data, by plant (sample, beat)
+csvwrite( [ rdatapath '/Xs_ST.csv'], [latitudeST   t_infoST(:,2)]); % time-latitude data, sumed over site and time
 
-csvwrite( 'Rfiles/Rdata/Xe_PL.csv', Lplant(ind_in, :)  ); % plant (environment) data, by plant (sample, beat)
-csvwrite( 'Rfiles/Rdata/Xe_ST.csv', LplantST ); % plant data, sumed over site and time
+csvwrite([ rdatapath  '/Xe_PL.csv'], Lplant(ind_in, :)  ); % plant (environment) data, by plant (sample, beat)
+csvwrite([ rdatapath  '/Xe_ST.csv'], LplantST ); % plant data, sumed over site and time
+
+
