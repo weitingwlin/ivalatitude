@@ -5,13 +5,14 @@
     mcolor = [12 37 8];
     latS = Tsite.decimallatitude;
 %% richness
+figure
     richnessST = sum(  t_matST > 0, 2);
   %  richnessS = sum( metacommunity(t_matST, t_infoST(:,1)) > 0, 2);
-   mysubplot(1, 2, 0, 'Richness')
+   mysubplot(1, 5, 0, 'Richness')
     name = 'richness';    
     Xdata = Tsite.decimallatitude;   
     % plot by month
-    mysubplot(1,2,1)
+    mysubplot(1,7,[2 3 ],'', [],0.1)
     for m = 6:8
                 ind = t_infoST(:,2) == m;   
                 Ydata =  richnessST(ind); 
@@ -21,24 +22,24 @@
     xlabel('latitude'); ylabel({'Taxon',name});
 %   
     g_richnessST = sum(  g_matST > 0, 2);
-   mysubplot(1,2,2)
+   mysubplot(1,7,[5 6],'', [], 0.1)
    for m = 6:8
                 ind = g_infoST(:,2) == m;   
            Ydata =  g_richnessST(ind);
                
             script_fitpoly_latitude_trends         
     end
-   % script_latitude_trends_legend
+    script_latitude_trends_legend
    xlim([30 43])
    xlabel('latitude'); ylabel({'Guild',name});
 %% diversity (Shannon)
 figure
-mysubplot(1, 2, 0, 'Shannon diversity')
+mysubplot(1, 5, 0, 'Shannon diversity')
  name = 'Shannon';    
     shannonST = D_ind_shannon(t_matST);
     Xdata = Tsite.decimallatitude;   
     % plot by month
-    mysubplot(1,2,1)
+    mysubplot(1,7,[2 3],'', [], 0.1)
     for m = 6:8
                 ind = t_infoST(:,2) == m;   
            Ydata =   shannonST(ind);
@@ -49,13 +50,14 @@ mysubplot(1, 2, 0, 'Shannon diversity')
    xlabel('latitude'); ylabel({'Taxon', 'diversity'});
    %%%%%%
    g_shannonST = D_ind_shannon(g_matST);
-     mysubplot(1,2,2)
+      mysubplot(1,7,[5 6],'', [], 0.1)
    for m = 6:8
                 ind = g_infoST(:,2) == m;   
            Ydata =  g_shannonST(ind);
                 
             script_fitpoly_latitude_trends         
    end   
+    script_latitude_trends_legend
        xlim([30 43])
           xlim([30 43])
    xlabel('latitude'); ylabel({'Guild', 'diversity'});
@@ -65,7 +67,7 @@ mysubplot(1, 2, 0, 'Mean Rank Shift (MRS)')
 name = 'MRS';    
     %Xdata = Tsite.decimallatitude;   
     % plot by month
-    mysubplot(1,2,1)
+    mysubplot(1,2,1,'', [], 0.4)
     for m = 6:8
                 ind = t_infoST(:,2) == m;   
             [Ydata, Xdata, dif] = mean_rank_shift(t_matST(ind,:), Tsite.decimallatitude, 2);
@@ -78,7 +80,7 @@ name = 'MRS';
    xlabel('latitude'); ylabel({'Taxon', 'MRS'});
    %%%%%%
  %  g_shannonST = D_ind_shannon(g_matST);
-     mysubplot(1,2,2)
+     mysubplot(1,2,2,'', [], 0.4)
    for m = 6:8
                 ind = g_infoST(:,2) == m;   
             [Ydata, Xdata, dif] = mean_rank_shift(g_matST(ind,:), Tsite.decimallatitude,2);

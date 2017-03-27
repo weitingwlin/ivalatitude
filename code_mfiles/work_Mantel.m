@@ -2,8 +2,6 @@
 clear;clc
 work_compile3
 
-%% NMDS plot 1
-
  %% Mantel test
 
  [r, p] = f_mantel(squareform(pdist( g_LdataST)),  squareform(pdist(monthST)), 0, 10000);

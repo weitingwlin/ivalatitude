@@ -23,7 +23,8 @@ files
 * **work\_Mantel\_null.m**: test guild Mantel correlation
 * **work\_nestedness\_Mantel.m**: nestedness vs. turnover results
 * **work\_nestedness\_Mantel\_inference**: nestedness vs. turnover results
-* **work\_NMDS\_and\_Mantel.m**: 
-* **work\_NMDS\_withAxis.m**: 
+* **work\_Mantel.m**: do Mantel test (make inferences on NMDS plots). 
+* **work\_NMDS\_guild\_withAxis.m**: make NMDS figures for guild composition, with axis, gray scale
+* **work\_NMDS\_taxon\_withAxis.m**: make NMDS figures for guild composition, with axis, gray scale
 * **work_RAC.m**: rank-abundance-curve
 * **work\_setup.m**: set machine specific working directory
