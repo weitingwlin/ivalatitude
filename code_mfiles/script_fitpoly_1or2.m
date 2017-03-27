@@ -1,7 +1,7 @@
 %% script used in work_abundance_pattern
-    latST = siteinfo(g_infoST(:,1),2);
-    monST =g_infoST(:,2);
-      subg =log10( g_matST(:,g) + 1);
+    latST = latitudeST;
+    monST =monthST;
+     % subg =log10( g_matST(:,g) + 1);
      gtab=  table(subg,  latST , monST);
      %% model fitting
          mdls = stepwiselm(gtab, 'subg ~ latST + latST^2 + monST',  'Criterion', 'aic');
@@ -20,7 +20,7 @@
          p = coefTest(mdls);
         %  x = char(split(mdls.Formula.LinearPredictor , ' + '))
          mlstyle = [3 2 2];
-         mstyle = [1.5 7 1];
+         mstyle = [1.5 17 7];
 %%
         if p >= 0.05
                 model = 'none';
@@ -30,7 +30,7 @@
                         for m = 6:8
                                         ind = (g_infoST(:,2)==m);
                                         subgm  = subg(ind);
-                                        [xData, yData] = prepareCurveData(siteinfo(:,2), subgm );
+                                        [xData, yData] = prepareCurveData(Tsite.decimallatitude , subgm );
                                        xPrid = linspace(min(xData), max(xData), 100);
                                           Cs = mdls.Coefficients.Estimate; Cs(6) = 0; % a dummy for not
                                        yPrid = Cs(1) + ...
@@ -42,7 +42,7 @@
                                        myplot(xPrid, yPrid, 'L', floor(mstyle(m-5)), mlstyle(m-5) );
                         end
                 else % month not in the picture
-                         [xData, yData] = prepareCurveData(siteinfo(g_infoST(:,1),2), subg );
+                         [xData, yData] = prepareCurveData(Tsite.decimallatitude(g_infoST(:,1)), subg );
                                        xPrid = linspace(min(xData), max(xData), 100);
                                           Cs = mdls.Coefficients.Estimate; Cs(6) = 0; % a dummy for not
                                        yPrid = Cs(1) + ...
