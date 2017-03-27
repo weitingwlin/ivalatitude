@@ -20,6 +20,7 @@
 %% metacommunity and transformation
     [t_matST, t_infoST] = metacommunity( taxonmat, Tplant{:, {'Sitecode', 'Monthcode'}} ) ;
     [g_matST, g_infoST] = metacommunity( guildmat, Tplant{:, {'Sitecode', 'Monthcode'}} ) ;
+
     % month and latitude data for metacommunity at sites scale
      monthST = t_infoST(:,2); 
      latitudeST =  Tsite{t_infoST(:,1),{'decimallatitude'}};
@@ -28,5 +29,6 @@
         t_LdataST= log(t_matST+1);
 %%
  script_compile_plant3
+      plantST = metacommunity( Tplant2{:,:}, Tplant{:, {'Sitecode', 'Monthcode'}} , 'mean') ;
  %%
  clear guildlist taxonlist

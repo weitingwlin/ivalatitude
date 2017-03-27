@@ -31,4 +31,9 @@
  %  Lplant(:,[1 2 6 7 8]) = log(plantdata(:,[ 1 2  6 7 8])+1);
  %  Lplant(:, [4 5]) = asin(sqrt(Lplant(:, [4 5])./30));
  %%
+ %temp = cell2table( Tplant2.Properties.VariableNames', 'VariableNames', {'variable'});
+ Plant_namestr = {'Wrack (log)', 'Armases in 4 m^2 (log)', 'Plant area (log)', 'Plant volume (log)', ... 
+                'Leave toughness (log)', 'Plant height', 'Leave galls ratio (asin-sqrt)', 'Leave miners ratio (asin-sqrt)'};
+%  temp2 = cell2table(  Plant_namestr, 'VariableNames', {'variable'});     
+ %%
  clear Tlog Tassr log_data log_name assr_data assr_name
