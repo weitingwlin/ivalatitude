@@ -11,6 +11,7 @@ aphidST = metacommunity( sum(wbugdata(:, ind_aphid), 2), ...
 mstyle = [1.5 17 7];
 %%
 figure
+mysubplot(6,1, 2:5)
 guildstr = 'aphid';
     for m = 6:8
         ind = (g_infoST(:,2) == m);
@@ -23,7 +24,9 @@ guildstr = 'aphid';
     subg = log10( aphidST + 1);
     script_fitpoly_1or2    
              xlabel('Latitude');
-            ylabel('log_1_0(N + 1)');           
-                title(guildstr);
+            ylabel('log_1_0(N + 1)');       
+               title({['p =',  num2str(p,3)], model, ''}, 'fontsize', 10);
+             %   title(guildstr);
             axis([30 43 0 ceil(max(subg))]);
           disp(   [guildstr, model])    
+                    mysubplot(6,1,0, guildstr)

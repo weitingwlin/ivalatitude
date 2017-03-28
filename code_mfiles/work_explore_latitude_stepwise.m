@@ -23,7 +23,7 @@ figure
         script_fitpoly_latitude_stepwise         
             xlim([30 43])
             xlabel('latitude'); ylabel({'Taxon',name});
-            title({['p =',  num2str(p,3)], model}, 'fontsize', 10);
+            title({['p =',  num2str(p,3)], model, ''}, 'fontsize', 10);
 %  guild richness
    mysubplot(1,7,[5 6],'', [], 0.1)
             g_richnessST = sum(  g_matST > 0, 2);
@@ -31,7 +31,7 @@ figure
         script_fitpoly_latitude_stepwise         
             xlim([30 43])
             xlabel('latitude'); ylabel({'Guild',name});
-             title({['p =',  num2str(p,3)], model}, 'fontsize', 10);
+             title({['p =',  num2str(p,3)], model,''}, 'fontsize', 10);
 %% diversity (Shannon)
 figure
 mysubplot(1, 5, 0, 'Shannon diversity')
@@ -45,7 +45,7 @@ mysubplot(1, 5, 0, 'Shannon diversity')
             xlim([30 43])
            
    xlabel('latitude'); ylabel({'Taxon', 'Shannon diversity'});
-    title({['p =',  num2str(p,3)], model}, 'fontsize', 10);
+    title({['p =',  num2str(p,3)], model, ''}, 'fontsize', 10);
    %%%%%%
 
       mysubplot(1,7,[5 6],'', [], 0.1)
@@ -55,4 +55,4 @@ mysubplot(1, 5, 0, 'Shannon diversity')
             xlim([30 43])
 
    xlabel('latitude'); ylabel({'Guild', 'Shannon diversity'});
-    title({['p =',  num2str(p,3)], model}, 'fontsize', 10);
+    title({['p =',  num2str(p,3)], model, ''}, 'fontsize', 10);

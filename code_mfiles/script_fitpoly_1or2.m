@@ -1,13 +1,13 @@
 %% script used in work_abundance_pattern
-    latST = latitudeST;
-    monST =monthST;
+    lat = latitudeST;
+    month =monthST;
      % subg =log10( g_matST(:,g) + 1);
-     gtab=  table(subg,  latST , monST);
+     gtab=  table(subg,  lat , month);
      %% model fitting
-         mdls = stepwiselm(gtab, 'subg ~ latST + latST^2 + monST',  'Criterion', 'aic');
+         mdls = stepwiselm(gtab, 'subg ~ lat + lat^2 + month',  'Criterion', 'aic');
           x =  mdls.CoefficientNames;
         
-         candidate = {'latST', 'latST^2', 'monST', 'latST:monST' , 'latST^2:monST' };
+         candidate = {'lat', 'lat^2', 'month', 'lat:month' , 'lat^2:month' };
          inmodel = zeros(1,5);
          for c = 1:5
              ind = strmatch(candidate{c},  x,'exact');
@@ -22,10 +22,11 @@
          mlstyle = [3 2 2];
          mstyle = [1.5 17 7];
 %%
+   model = join(x(2:end), ' + ');
         if p >= 0.05
-                model = 'none';
+            %    model = 'none';
         else   
-                model = join(x, ' + ');
+            %    model = join(x, ' + ');
                 if any(inmodel(3:5) ~= 6) % month in the picture
                         for m = 6:8
                                         ind = (g_infoST(:,2)==m);

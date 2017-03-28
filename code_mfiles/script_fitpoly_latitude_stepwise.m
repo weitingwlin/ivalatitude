@@ -25,8 +25,8 @@
          mstyle = [1.5 17 7];
 
  %%
-  model = join(x, ' + ');
-        if p >= 0.1
+  model = join(x(2:end), ' + ');
+        if p >= 0.05
              %   model = 'none';
         else   
                % model = join(x, ' + ');
