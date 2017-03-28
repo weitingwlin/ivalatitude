@@ -27,5 +27,6 @@ files
 * **work\_Mantel.m**: do Mantel test (make inferences on NMDS plots). 
 * **work\_NMDS\_guild\_withAxis.m**: make NMDS figures for guild composition, with axis, gray scale
 * **work\_NMDS\_taxon\_withAxis.m**: make NMDS figures for guild composition, with axis, gray scale
+* **work\_plant\_pattern.m**: plant variables latitudinal pattern, using stepwise lm.
 * **work_RAC.m**: rank-abundance-curve
 * **work\_setup.m**: set machine specific working directory

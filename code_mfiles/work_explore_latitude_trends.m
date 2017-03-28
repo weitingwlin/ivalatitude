@@ -4,18 +4,25 @@
     work_compile3
     mcolor = [12 37 8];
     latS = Tsite.decimallatitude;
+%% problem with missing sample
+% number of sample
+    nsample = metacommunity(guildmat,Tplant{:, {'Sitecode', 'Monthcode'}} , 'count'); 
+ %   ind_lesssample = find(nsample == 4);
+% 
 %% richness
 figure
     richnessST = sum(  t_matST > 0, 2);
-  %  richnessS = sum( metacommunity(t_matST, t_infoST(:,1)) > 0, 2);
    mysubplot(1, 5, 0, 'Richness')
     name = 'richness';    
-    Xdata = Tsite.decimallatitude;   
+
     % plot by month
     mysubplot(1,7,[2 3 ],'', [],0.1)
     for m = 6:8
                 ind = t_infoST(:,2) == m;   
                 Ydata =  richnessST(ind); 
+                Ydata = Ydata(nsample(ind) ~= 4);
+                    Xdata = Tsite.decimallatitude;   
+                 Xdata = Xdata(nsample(ind) ~= 4);
             script_fitpoly_latitude_trends         
     end
      xlim([30 43])
@@ -26,7 +33,9 @@ figure
    for m = 6:8
                 ind = g_infoST(:,2) == m;   
            Ydata =  g_richnessST(ind);
-               
+             Ydata = Ydata(nsample(ind) ~= 4);
+                    Xdata = Tsite.decimallatitude;   
+                 Xdata = Xdata(nsample(ind) ~= 4);    
             script_fitpoly_latitude_trends         
     end
     script_latitude_trends_legend
@@ -37,13 +46,15 @@ figure
 mysubplot(1, 5, 0, 'Shannon diversity')
  name = 'Shannon';    
     shannonST = D_ind_shannon(t_matST);
-    Xdata = Tsite.decimallatitude;   
+   % Xdata = Tsite.decimallatitude;   
     % plot by month
     mysubplot(1,7,[2 3],'', [], 0.1)
     for m = 6:8
                 ind = t_infoST(:,2) == m;   
            Ydata =   shannonST(ind);
-               
+               Ydata = Ydata(nsample(ind) ~= 4);
+                    Xdata = Tsite.decimallatitude;   
+                 Xdata = Xdata(nsample(ind) ~= 4);
             script_fitpoly_latitude_trends         
     end
    xlim([30 43])
@@ -54,7 +65,9 @@ mysubplot(1, 5, 0, 'Shannon diversity')
    for m = 6:8
                 ind = g_infoST(:,2) == m;   
            Ydata =  g_shannonST(ind);
-                
+                Ydata = Ydata(nsample(ind) ~= 4);
+                    Xdata = Tsite.decimallatitude;   
+                 Xdata = Xdata(nsample(ind) ~= 4);
             script_fitpoly_latitude_trends         
    end   
     script_latitude_trends_legend

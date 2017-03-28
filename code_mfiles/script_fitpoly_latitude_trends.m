@@ -6,7 +6,10 @@
     temptab = array2table([Xdata  Ydata], 'Variablenames', {'latitude', name});
     mdl = stepwiselm(temptab, 'quadratic',  'Criterion', 'aic');
     p = coefTest(mdl);
-    h{ID} = myplot(temptab.latitude,  temptab{:, name}, 'S', color, style);hold on
+    h{ID} = myplot(temptab.latitude,  temptab{:, name}, 'S', color, style); hold on
+  %  if ~isempty( nsample(ind) == 4)
+  %    myplot(temptab.latitude( nsample(ind) == 4), temptab{ nsample(ind) == 4, name}, 'S', 1, '*');
+ %  end
     if mdl.NumCoefficients > 1 && p < 0.05
             X = linspace(min(Xdata), max(Xdata), 20);
             Y = predict( mdl, X');                  
