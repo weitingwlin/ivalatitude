@@ -11,6 +11,7 @@ files
 * **script\_compile\_plant3.m**: transform and compile plant data script used in **work\_compile3.m**
 * **script\_fitpoly_1or2.m**: script used in **work\_abundance\_pattern.m**
 * **script\_fitpoly\_latitude\_trends.m**: used in **work\_explore\_latitude\_trends.m**
+* **script\_fitpoly\_latitude\_stepwise.m**: used in **work\_explore\_latitude\_stepwise.m**
 * **work\_abundance\_aphid.m**: print patterns for aphid abundance by latitude, with step-wise regression lines 
 * **work\_abundance\_pattern.m**: print patterns for each guild by latitude, with step-wise regression lines 
 * **work\_compile\_R\_varpart3.m**: compile/transform data for doing partitioning of variation in **R**
@@ -19,6 +20,7 @@ files
 * **work\_explore\_diversity.m**: plotting richness and diversity pattern
 * **work\_explore\_guild\_latitude\_PCA**: do PCA for guild composition 
 * **work\_explore\_latitude\_trends.m**: latitudinal trends of richness, shannon, MRS, nestedness, turnover
+* **work\_explore\_latitude\_stepwise.m**: latitudinal trends of richness, shannon, using stepwise lm.
 * **work\_explore\_plant.m**: transform plant data and visualize in qqplot
 * **work\_make\_map.m**: make map
 * **work\_Mantel\_null.m**: test guild Mantel correlation
