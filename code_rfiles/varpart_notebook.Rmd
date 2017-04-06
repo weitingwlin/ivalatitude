@@ -1,0 +1,183 @@
+---
+title: "Arthropods on Iva: partitioning of variation"
+output: md_notebook
+---
+
+
+### Preparation
+
+##### cleanup workspace
+
+```{r}
+rm(list = ls()) # clean work space
+                # use ``Ctrl + L` to clean console 
+```
+
+##### load libraries
+
+```{r, echo = FALSE}
+#   install.packages("vegan")
+library("vegan")
+```
+
+##### load data
+
+```{r}
+#  the explainatary variables
+Xs_PL <-read.table("Rdata/Xs_PL.csv", sep = ",") # site and time, plant scale
+Xs_ST <-read.table("Rdata/Xs_ST.csv", sep = ",") # site and time, 
+Xe_PL <-read.table("Rdata/Xe_PL.csv", sep = ",") # environmental variables, plant scale
+Xe_ST <-read.table("Rdata/Xe_ST.csv", sep = ",") # (mean) environmental variables, at site scale
+# the response variables
+Yt_PL <-read.table("Rdata/Yt_PL.csv", sep = ",") # taxon composition, plant scale
+Yt_ST <-read.table("Rdata/Yt_ST.csv", sep = ",") #                  , site scale
+Yg_PL <-read.table("Rdata/Yg_PL.csv", sep = ",") # guild 
+Yg_ST <-read.table("Rdata/Yg_ST.csv", sep = ",")
+```
+
+Add column name to data
+
+```{r}
+# class(Xs_ST)   # make sure it's data.frame
+# head(Xs_ST, 3) # latitude, month
+colnames(Xs_PL) <- c("Latitude", "Month")
+colnames(Xs_ST) <- c("Latitude", "Month")
+#  head(Xs_PL,2)
+```
+
+## Partitioning of variation using `varpart`
+
+```{r}
+mod_tPL <- varpart(Yt_PL, ~ ., Xs_PL$Latitude, Xs_PL$Month , data = Xe_PL, transfo="log")
+                         # ^^^ using all data in `Xe_PL`     
+mod_gPL <- varpart(Yg_PL, ~ ., Xs_PL$Latitude, Xs_PL$Month , data=Xe_PL, transfo="log")
+mod_tST <- varpart(Yt_ST, ~ ., Xs_ST$Latitude, Xs_ST$Month , data=Xe_ST, transfo="log")
+mod_gST <- varpart(Yg_ST, ~ ., Xs_ST$Latitude, Xs_ST$Month , data=Xe_ST, transfo="log")
+```
+
+### plots
+
+Result at plant (the smaller) scale:
+```{r}
+par(mfrow = c (1,2))
+p1 <- plot(mod_tPL, 
+           bg = c("hotpink","skyblue", "burlywood"),
+           Xnames=c('Plant', 'Month','Latitude'))
+      title(main= 'Taxon-based, plant scale' )
+p2 <- plot(mod_gPL, 
+           bg = c("hotpink","skyblue", "burlywood"),
+           Xnames=c('Plant', 'Month','Latitude'))
+      title(main= 'Guild-based, plant scale' )
+```
+
+```{r}
+par(mfrow = c (1,2))
+p3 <- plot(mod_tST, 
+           bg = c("hotpink","skyblue", "burlywood"),
+           Xnames=c('Plant', 'Month','Latitude'))
+      title(main= 'Taxon-based, site scale' )
+p4 <- plot(mod_gST, 
+           bg = c("hotpink","skyblue", "burlywood"),
+           Xnames=c('Plant', 'Month','Latitude'))
+      title(main= 'Guild-based, site scale' )
+```
+
+### another way of plotting
+```{r}
+install("~/Dropbox/DataCoding/my_R/package/vennchart")
+
+library(vennchart)
+```
+
+
+
+```{r}
+valueParse <-function(mod)  {
+   a <-   mod$part$indfract$Adj.R.square
+  
+  #  showvarparts(3)
+  
+  A <- a[1] + a[4] + a[6] + a[7] # a + d + f + g
+  B <- a[2] + a[4] + a[5] + a[7] # b + d + e + g
+  C <- a[3] + a[5] + a[6] + a[7] # c + e + f + g
+  AB <- a[4] + a[7] # d + g
+  AC <- a[6] + a[7] # f + g
+  BC <- a[5] + a[7] # e + g
+  ABC <- a[7]
+  res <- a[8]
+  
+  out <- list("A" = A, "B" = B, "C" = C,
+              "AB" = AB, "AC" = AC, "BC"= BC,
+              "res" = res)
+  
+  return(out)
+}
+```
+
+# site scale
+
+```{r,fig.width = 12, fig.height = 6}
+par(mfrow = c (1,2))
+X <- valueParse(mod_tST)
+L <- list("xlim" = c(-5,5), "ylim" = c(-6, 4))
+Q1 <-  vennChart(A_all = X$A * 100, B_all = X$B * 100, C_all = X$C * 100,
+                AandB = X$AB * 100, AandC = X$AC * 100, BandC = X$BC * 100, 
+                names = c('Plant', 'Month','Latitude'),
+                textadj = c(1.3,0), cex = 1.2, lim = L,
+                unit = "%", digits = 2)
+
+text(0, -5.8, 
+     paste("Residual: ", as.character(round(X$res * 100, 2)) , "%"), 
+     cex = 1.2)
+
+title("Taxon-based \n Site scale")
+
+
+X <- valueParse(mod_gST)
+Q2 <-  vennChart(A_all = X$A * 100, B_all = X$B * 100, C_all = X$C * 100,
+                AandB = X$AB * 100, AandC = X$AC * 100, BandC = X$BC * 100, 
+                names = c('Plant', 'Month','Latitude'),
+                textadj = c(1.3,0.2), cex = 1.2, lim = L,
+                unit = "%", digits = 2)
+text(0, -5.8, 
+     paste("Residual: ", as.character(round(X$res * 100, 2)) , "%"), 
+     cex = 1.2)
+title("Guild-based \n Site scale")
+```
+
+# plant scale
+
+```{r,fig.width = 12, fig.height = 6}
+par(mfrow = c (1,2))
+X <- valueParse(mod_tPL)
+Q3 <-  vennChart(A_all = X$A * 100, B_all = X$B * 100, C_all = X$C * 100,
+                AandB = X$AB * 100, AandC = X$AC * 100, BandC = X$BC * 100, 
+                names = c('Plant', 'Month','Latitude'), digits = 2,
+                textadj = c(1.5,0.3), cex = 1.2, lim = L,
+                unit = "%")
+text(0, -5.8, 
+     paste("Residual: ", as.character(round(X$res * 100, 2)) , "%"), 
+     cex = 1.2)
+title("Taxon-based \n Plant scale")
+X <- valueParse(mod_gPL)
+Q4 <-  vennChart(A_all = X$A * 100, B_all = X$B * 100, C_all = X$C * 100,
+                AandB = X$AB * 100, AandC = X$AC * 100, BandC = X$BC * 100, 
+                 lim = L,textadj = c(1.5,0.4), texts = FALSE)
+# print the texts separately for more control
+Q4$textspos$tpB[2] <- Q4$textspos$tpB[2] + 1 
+plotVennTexts(Q4$textspos, names = c('Plant', 'Month','Latitude'), digits = 2,
+                 cex = 1.2, unit = "%")
+text(0, -5.8, 
+     paste("Residual: ", as.character(round(X$res * 100, 2)) , "%"), 
+     cex = 1.2)
+title("Guild-based \n Plant scale")
+```
+
+
+
+
+
+
+
+
+
