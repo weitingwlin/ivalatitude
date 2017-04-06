@@ -25,7 +25,7 @@ for g = 1:10
             
            guildstr = Tguildname(Tguildname.guildcode ==g,:).guildname;
               %  title(guildstr);
-                 title({['p =',  num2str(p,3)], model, ''}, 'fontsize', 10);
+                 title({pstring, model, ''}, 'fontsize', 10);
             axis([30 43 0 ceil(max(subg))]);
           disp(   [guildstr, model])    
           mysubplot(6,1,0, guildstr)

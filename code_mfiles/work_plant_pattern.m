@@ -3,30 +3,81 @@
     work_compile3
 %%  
 [Y,I2] = sort( Tsite.decimallatitude ); % site 3 at lowest latitude
- lat = Tsite.decimallatitude(I2);  
+ latS = Tsite.decimallatitude(I2);  
 mstyle = [1.5 17 7];
-%%
-for v = 1 :8 % variables  
-    figure
-    for m = 6:8
-        ind = (g_infoST(:,2)==m);
-        sub1 = plantST(ind, v); % plant data is already trensformed
-        sub2 = sub1(I2) ; % ranked from low to high latitude      
-        myplot(lat, sub2, 'S', mstyle(m-5), m-5); hold on            
-    end
-    legend(num2month(6:8))
-    %%%%%%%%%%%%%
-    subg = plantST(:,v) ;
-    script_fitpoly_1or2      
-    %%%%%%%%%%%%%
-            xlabel('Latitude');
-          %  ylabel('log_1_0(N + 1)');    
-            title(Plant_namestr{v});
-            ylimit = ylim;
-            if min(subg) == 0
-                ylim([0 ylimit(2)]);
-            end
-            xlim([30 43]);
-            
-            disp(   [Plant_namestr{v}, model])    
+
+%% 
+v = 1
+   script_plant_pattern 
+        ytemp = [0:10:50, 100];
+         ytrans = log10(ytemp +1);
+         ylim([ytrans(1), ytrans(end)])  
+    set(gca, 'Ytick', ytrans)
+    set(gca, 'YtickLabels', split(num2str(ytemp)))  
+    ylabel( ['  (', Tplant2name.unit{v},')'])
+      mysubplot(4,1,0,  {'', [Tplant2name.x___X{v}], ...
+                                       ['transformation: ( ', Tplant2name.transformation{v}, ' ) '] })    
+%% Armases
+v = 2
+   script_plant_pattern 
+        ytemp = [0:5, 10];
+         ytrans = log10(ytemp +1);
+         ylim([ytrans(1), ytrans(end)])  
+    set(gca, 'Ytick', ytrans)
+    set(gca, 'YtickLabels', split(num2str(ytemp)))  
+    ylabel( ['  (', Tplant2name.unit{v},')'])
+      mysubplot(4,1,0,  {'', [Tplant2name.x___X{v}], ...
+                                       ['transformation: ( ', Tplant2name.transformation{v}, ' ) '] })    
+
+%% 
+v = 3
+   script_plant_pattern 
+        ytemp = [0.25, 0.5:0.5: 2, 2.25];
+         ytrans = log10(ytemp +1);
+         ylim([ytrans(1), ytrans(end)])  
+    set(gca, 'Ytick', ytrans)
+    set(gca, 'YtickLabels', split(num2str(ytemp)))  
+    ylabel( ['  (', Tplant2name.unit{v},')'])
+      mysubplot(4,1,0,  {'', [Tplant2name.x___X{v}], ...
+                                       ['transformation: ( ', Tplant2name.transformation{v}, ' ) '] })    
+%% volume
+v = 4
+   script_plant_pattern 
+        ytemp = [0, 0.5 1:4];
+         ytrans = log10(ytemp +1);
+         ylim([ytrans(1), ytrans(end)])  
+    set(gca, 'Ytick', ytrans)
+    set(gca, 'YtickLabels', split(num2str(ytemp)))  
+    ylabel( ['  (', Tplant2name.unit{v},')'])
+      mysubplot(4,1,0,  {'', [Tplant2name.x___X{v}], ...
+                                       ['transformation: ( ', Tplant2name.transformation{v}, ' ) '] })    
+%% v = 5 leaf toughness
+v = 5
+    script_plant_pattern 
+         ytemp = [100, 150, 200, 300, 400, 500];
+         ytrans = log10(ytemp +1);
+         ylim([ytrans(1), ytrans(end)])  
+    set(gca, 'Ytick', ytrans)
+    set(gca, 'YtickLabels', split(num2str(ytemp)))  
+    ylabel( ['  (', Tplant2name.unit{v},')'])
+     mysubplot(4,1,0,  {'', [Tplant2name.x___X{v}], ...
+                                       ['transformation: ( ', Tplant2name.transformation{v}, ' ) '] })    
+
+%% v = 6
+v = 6
+    script_plant_pattern 
+    ylabel( ['  (', Tplant2name.unit{v},')'])
+mysubplot(4,1,0,  {'', [Tplant2name.x___X{v}] })    
+
+%% v = 7:8
+for v = 7:8
+script_plant_pattern 
+    ytemp = 0:0.1:0.9;
+            ytrans = asin(sqrt(ytemp));
+    ylim([0, ytrans(end)])  
+    set(gca, 'Ytick', ytrans)
+    set(gca, 'YtickLabels', split(num2str(ytemp)))    
+   ylabel( ['  (', Tplant2name.unit{v},')'])
+    mysubplot(4,1,0,  {'', [Tplant2name.x___X{v}], ...
+                                       ['transformation: ( ', Tplant2name.transformation{v}, ' ) '] })    
 end

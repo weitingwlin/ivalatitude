@@ -4,6 +4,7 @@
     T1 = readtable('data/csvdata/sampledata.csv', 'ReadVariableNames', true);
     Tsite = readtable('data/csvdata/sitedata.csv', 'ReadVariableNames', true);
     T4 =  readtable('data/csvdata/plantdata.csv', 'ReadVariableNames', true);
+
     Tguildtaxon =  readtable('data/csvdata/guild_and_taxon.csv', 'ReadVariableNames', true);
     Tguildname =  readtable('data/csvdata/guildname.csv', 'ReadVariableNames', true);
 %% combine plant and arthropod data, replace missing values
@@ -25,10 +26,13 @@
      monthST = t_infoST(:,2); 
      latitudeST =  Tsite{t_infoST(:,1),{'decimallatitude'}};
 %% DATA transformation 
-        g_LdataST= log(g_matST+1);
-        t_LdataST= log(t_matST+1);
+        g_LdataST= log10(g_matST+1);
+        t_LdataST= log10(t_matST+1);
 %%
  script_compile_plant3
       plantST = metacommunity( Tplant2{:,:}, Tplant{:, {'Sitecode', 'Monthcode'}} , 'mean') ;
+%%
+    Tplant2name = readtable('data/csvdata/plant_variables.csv', 'ReadVariableNames', true);
+     Tplant2name.transformation{6} = '';
  %%
  clear guildlist taxonlist

@@ -6,7 +6,7 @@ clear;clc
 
 %%%% set working directory and path
 if strncmp(strout, 'weitingdeAir',12)||strncmp(strout, 'weitingdeMacBook-Air',5)
-    cd '/Users/weitinglin/Dropbox/PhD_projects/iva_latitude'
+    cd '/Users/weitinglin/Dropbox/PhD_projects/iva_latitude/code_mfiles'
     addpath '/Users/weitinglin/Dropbox/DataCoding/utility_wtl/mfiles'
     addpath '/Users/weitinglin/Dropbox/DataCoding/utility_wtl_ecology/mfiles'
     addpath '/Users/weitinglin/Dropbox/DataCoding/MATLAB/FTM/Fathom';

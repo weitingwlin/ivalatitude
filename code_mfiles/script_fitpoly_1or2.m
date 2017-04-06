@@ -55,4 +55,9 @@
                                        myplot(xPrid, yPrid, 'L', 1, 1);
                 end
         end
-  
+  %%
+  if p >= 0.0001
+        pstring =  ['p =',  num2str(p, 2)];
+  else
+        pstring =  'p <  0.0001';
+  end

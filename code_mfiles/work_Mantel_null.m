@@ -1,6 +1,6 @@
 %% explore guild diversity  and test against null models
 clear;clc
-work_compile
+work_compile3
    
  %% simulation of null model
  rng(1)
@@ -11,9 +11,9 @@ work_compile
   nullpmon = zeros(1, it);
   tic
  parfor i=1:it
-    nullguild = datasample(guild2, length(guild2), 'Replace', false);
-    [nullguildmat, guildlist] = Spp2Guild(bugdata, nullguild, [0]);
-    [nullg_matST, g_infoST] = metacommunity( nullguildmat, sampledata(:, [1, 2] ) ) ;
+    nullguild = datasample( Tguildtaxon.guildcode2, height(Tguildtaxon), 'Replace', false);
+    [nullguildmat, guildlist] = Spp2Guild(wbugdata, nullguild, [0]);
+    [nullg_matST, g_infoST] = metacommunity( nullguildmat, Tplant{:, {'Sitecode', 'Monthcode'}} ) ;
 
 [r, p] = f_mantel(squareform(pdist(log(nullg_matST+1))),  squareform(pdist(latitudeST )), 0, 10000);
 [r2, p2] = f_mantel(squareform(pdist(log(nullg_matST+1))),  squareform(pdist(monthST)), 0, 10000);
@@ -45,7 +45,7 @@ save Mantel_null nullrlat nullrmon nullplat nullpmon
  %% Mantel test: month
  rng(1)
  figure
- [r2,p2] = f_mantel(squareform(pdist(log(g_matST+1))),  squareform(pdist(infoST(:,2))), 0, 10000);
+ [r2,p2] = f_mantel(squareform(pdist(log(g_matST+1))),  squareform(pdist(t_infoST(:,2))), 0, 10000);
  mysubplot(1,2,1)
    histogram(nullrmon); hold on
         q1 = quantile(nullrmon, [ 0.5 0.95],2)
