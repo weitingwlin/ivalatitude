@@ -1,14 +1,14 @@
 %% explore bete-diversity pattern vs. latitudinal distance
 % Mantel correlation
 clear;clc
-work_compile
+work_compile3
 
 lat_Dissim = pdist([latitudeST ]);
 %%
 % by month
 for m = 1 : 3
-     g_Dissim_m{m} = pdist(  g_LdataST(infoST(:,2)==month(m), : ) ) ;
-                g_out =  betaNES_pairwise(  g_LdataST(infoST(:,2)==month(m), : ) );
+            g_Dissim_m{m} = pdist(  g_LdataST(g_infoST(:,2) == month(m), : ) ) ;
+            g_out =  betaNES_pairwise(  g_LdataST(g_infoST(:,2) == month(m), : ) );
             g_sim_m{m} = g_out.psim;  
             g_sor_m{m} = g_out.psor;  
             g_nes_m{m} = g_out.pnes;  
