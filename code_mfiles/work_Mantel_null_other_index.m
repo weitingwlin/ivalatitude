@@ -9,6 +9,7 @@ work_compile3
  nullrlatMRS = zeros(1, it);    nullrmonMRS = zeros(1, it); nullmeanMRS = zeros(1, it);
  nullrlatSIM = zeros(1, it);    nullrmonSIM = zeros(1, it);  nullmeanSIM = zeros(1, it);
  nullrlatNES = zeros(1, it);    nullrmonNES = zeros(1, it);  nullmeanNES = zeros(1, it);
+ nullrlatSOR = zeros(1, it);    nullrmonSOR = zeros(1, it);  nullmeanSOR = zeros(1, it);
  %%
   tic
  parfor i = 1 : it
@@ -29,6 +30,9 @@ work_compile3
         nullmeanNES(i) = mean(betaNES.pnes);
         nullrlatNES(i)  = f_mantel(squareform(betaNES.pnes),  squareform(pdist(latitudeST )), 0, 1);
         nullrmonNES(i)  = f_mantel(squareform(betaNES.pnes),  squareform(pdist(monthST )), 0, 1);
+        nullmeanSOR(i) = mean(betaNES.psor);
+        nullrlatSOR(i)  = f_mantel(squareform(betaNES.psor),  squareform(pdist(latitudeST )), 0, 1);
+        nullrmonSOR(i)  = f_mantel(squareform(betaNES.psor),  squareform(pdist(monthST )), 0, 1);
  end
  toc
 
@@ -78,4 +82,17 @@ work_compile3
   indexstr = 'Simpson';
   %ytop = 2500
   script_mantel_null_plot
-%%
+%% Sorenson
+     d = mean(betaNES.psor);
+     nulld =  nullmeanSOR;
+     r = f_mantel(squareform(betaNES.psor),  squareform(pdist([latitudeST ])), 0, 1);
+     nullr =  nullrlatSOR;
+     r2= f_mantel(squareform(betaNES.psor),  squareform(pdist([monthST ])), 0, 1);
+     nullr2 =  nullrmonSOR;
+  %   disp( ['mean (NES), p = ' num2str( pval(meand,  nullmeanNES) )])
+  %  disp( ['spatial-autocorrelation (NES), p = ' num2str( pval(r,  nullrlatNES) )])
+  %  disp( ['temporal-autocorrelation (NES), p = ' num2str( pval(r2,  nullrmonNES) )])
+  % plot  
+  indexstr = 'Sorenson';
+  %ytop = 2500
+  script_mantel_null_plot

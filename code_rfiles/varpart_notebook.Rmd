@@ -54,19 +54,21 @@ mod_gPL <- varpart(Yg_PL, ~ ., Xs_PL$Latitude, Xs_PL$Month , data=Xe_PL, transfo
 mod_tST <- varpart(Yt_ST, ~ ., Xs_ST$Latitude, Xs_ST$Month , data=Xe_ST, transfo="log")
 mod_gST <- varpart(Yg_ST, ~ ., Xs_ST$Latitude, Xs_ST$Month , data=Xe_ST, transfo="log")
 ```
-
 ### plots
+```{r}
+mod_gST
+```
 
 Result at plant (the smaller) scale:
 ```{r}
 par(mfrow = c (1,2))
 p1 <- plot(mod_tPL, 
            bg = c("hotpink","skyblue", "burlywood"),
-           Xnames=c('Plant', 'Month','Latitude'))
+           Xnames=c('Plant', 'Latitude','Month'))
       title(main= 'Taxon-based, plant scale' )
 p2 <- plot(mod_gPL, 
            bg = c("hotpink","skyblue", "burlywood"),
-           Xnames=c('Plant', 'Month','Latitude'))
+           Xnames=c('Plant', 'Latitude','Month'))
       title(main= 'Guild-based, plant scale' )
 ```
 
@@ -74,17 +76,18 @@ p2 <- plot(mod_gPL,
 par(mfrow = c (1,2))
 p3 <- plot(mod_tST, 
            bg = c("hotpink","skyblue", "burlywood"),
-           Xnames=c('Plant', 'Month','Latitude'))
+           Xnames=c('Plant','Latitude','Month'))
       title(main= 'Taxon-based, site scale' )
 p4 <- plot(mod_gST, 
            bg = c("hotpink","skyblue", "burlywood"),
-           Xnames=c('Plant', 'Month','Latitude'))
+           Xnames=c('Plant', 'Latitude','Month'))
       title(main= 'Guild-based, site scale' )
 ```
 
 ### another way of plotting
 ```{r}
-install("~/Dropbox/DataCoding/my_R/package/vennchart")
+library(devtools)
+install_github("weitingwlin/vennchart")
 
 library(vennchart)
 ```
@@ -122,7 +125,7 @@ X <- valueParse(mod_tST)
 L <- list("xlim" = c(-5,5), "ylim" = c(-6, 4))
 Q1 <-  vennChart(A_all = X$A * 100, B_all = X$B * 100, C_all = X$C * 100,
                 AandB = X$AB * 100, AandC = X$AC * 100, BandC = X$BC * 100, 
-                names = c('Plant', 'Month','Latitude'),
+                names = c('Plant','Latitude', 'Month'),
                 textadj = c(1.3,0), cex = 1.2, lim = L,
                 unit = "%", digits = 2)
 
@@ -136,7 +139,7 @@ title("Taxon-based \n Site scale")
 X <- valueParse(mod_gST)
 Q2 <-  vennChart(A_all = X$A * 100, B_all = X$B * 100, C_all = X$C * 100,
                 AandB = X$AB * 100, AandC = X$AC * 100, BandC = X$BC * 100, 
-                names = c('Plant', 'Month','Latitude'),
+                names = c('Plant','Latitude', 'Month'),
                 textadj = c(1.3,0.2), cex = 1.2, lim = L,
                 unit = "%", digits = 2)
 text(0, -5.8, 
@@ -152,7 +155,7 @@ par(mfrow = c (1,2))
 X <- valueParse(mod_tPL)
 Q3 <-  vennChart(A_all = X$A * 100, B_all = X$B * 100, C_all = X$C * 100,
                 AandB = X$AB * 100, AandC = X$AC * 100, BandC = X$BC * 100, 
-                names = c('Plant', 'Month','Latitude'), digits = 2,
+                names = c('Plant','Latitude', 'Month'), digits = 2,
                 textadj = c(1.5,0.3), cex = 1.2, lim = L,
                 unit = "%")
 text(0, -5.8, 
@@ -165,7 +168,7 @@ Q4 <-  vennChart(A_all = X$A * 100, B_all = X$B * 100, C_all = X$C * 100,
                  lim = L,textadj = c(1.5,0.4), texts = FALSE)
 # print the texts separately for more control
 Q4$textspos$tpB[2] <- Q4$textspos$tpB[2] + 1 
-plotVennTexts(Q4$textspos, names = c('Plant', 'Month','Latitude'), digits = 2,
+plotVennTexts(Q4$textspos, names = c('Plant','Latitude', 'Month'), digits = 2,
                  cex = 1.2, unit = "%")
 text(0, -5.8, 
      paste("Residual: ", as.character(round(X$res * 100, 2)) , "%"), 
