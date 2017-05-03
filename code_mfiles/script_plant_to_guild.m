@@ -15,9 +15,16 @@
 
   % stepwise linear regression
     % pack data into a table (z-score standardize the predicting variables)
-    temptab = array2table([zscore(Y), zscore(X),  latitudeSample], 'Variablenames', {'N', 'Var', 'Latitude'});
+    temptab = array2table([nanzscore(Y), nanzscore(X),  monthSample,  latitudeSample], ...
+                                           'Variablenames', {'N', 'Var', 'month', 'Latitude'});
     % run stepwise regression
-    mdls = stepwiselm( temptab, [ 'N ~ Var + Var^2 + Latitude + Latitude^2' ],  'Criterion', 'aic');
+  %  mdls = stepwiselm( temptab, [ 'N ~ Var + Var^2 + Latitude + Latitude^2' ],  'Criterion', 'aic');
+  % run quadrat lm
+  mdl = fitlm(temptab{:,3:4}, temptab{:, 1}, 'quadratic');
+  residST = mdl.Residuals.Raw;
+  temptab2 = array2table([ residST, nanzscore(X)], ...
+                                           'Variablenames', {'Nres', 'Var'});
+    mdls = fitlm( temptab2, 'Nres ~ Var  ' );
     % extracting the results (model selected)
     p = coefTest(mdls); % p value
     x =  mdls.CoefficientNames; % names of the variables
@@ -31,3 +38,4 @@
         end
      % print on the graph
         title({pstring(p),  mdlstring , '(predicting variables are z-scored)'})
+        

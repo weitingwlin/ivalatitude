@@ -1,12 +1,12 @@
-guildcode,guildname
-0,unknown
-1,sap feeder
-2,chewer
-3,borer
-4,ladybeetle
-5,web spider
-6,hunt spider
-7,other predator
-8,ant
-9,wasps
-10,fungi beetle
+guildcode,guildname,camel
+0,unknown,unknown
+1,sap feeder,sapFeeder
+2,chewer,chewer
+3,borer,borer
+4,ladybeetle,ladybeetle
+5,web spider,webSpider
+6,hunt spider,huntSpider
+7,other predator,otherPredator
+8,ant,ant
+9,wasps,wasps
+10,fungi beetle,fungiBeetle
