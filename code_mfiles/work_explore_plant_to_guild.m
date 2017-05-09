@@ -22,10 +22,12 @@ for iY = 1: 7 % guild
         resT = [resT, residST];
 end
  %%
- mycorrplot_2(resT, Tplant2,Tguildname.camel, Tplant2.Properties.VariableNames, 'T', [1 0 0]);
- mysubplot(1, 8, 0, {'Correlation between residual of abundance and plant variables', 'Site scale'})
+ mycorrplot_2(resT, Tplant2,Tguildname.camel(2:8), Tplant2.Properties.VariableNames, 'B', [1 0 0]);
+ mysubplot(1, 8, 0, {'Guild residual v.s. plant variables', 'Plant scale'})
 
 %%
+        iY = 2; % guild
+        Y = guildlog(:, iY);
         for iX = 3 % plant variables
                 X = Tplant2{:,iX};        
                 figure
@@ -49,8 +51,8 @@ end
         resTsite = [resTsite, residST];
  end
  %%
- mycorrplot_2(resTsite, plantST, Tplant2.Properties.VariableNames,[], 'T', [1 0 0]);
- mysubplot(1, 8, 0, {'Correlation between residual of abundance and plant variables', 'Site scale'})
+ mycorrplot_2(resTsite, plantST, Tguildname.camel(2:8), Tplant2.Properties.VariableNames, 'B', [1 0 0]);
+ mysubplot(1, 8, 0, {'Guild residual v.s. plant variables', 'Site scale'})
  %%
  for iY = 1:10 % guild
         for iX = 1:8 % plant variables

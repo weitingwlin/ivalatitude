@@ -26,7 +26,7 @@
 
  %%
   model = join(x(2:end), ' + ');
-        if p >= 0.05
+        if p >= 0.1 ||  ismissing(model)
              %   model = 'none';
         else   
                % model = join(x, ' + ');
@@ -59,4 +59,9 @@
                                        myplot(xPrid, yPrid, 'L', 1, 1);
                 end
         end
-  
+%%
+pstr = pstring(p);
+if   ismissing(model)
+    pstr = '';
+    model = '(intersept)';
+end

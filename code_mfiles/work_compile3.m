@@ -11,12 +11,16 @@
         T7 = join(T1, T4);
         Tplant = standardizeMissing(T7, 999); % replace missing value with `NaN`
         clear T1 T4 T7
-%% weighted bugdata
-        wbugdata = bugdata ./ repmat(Tplant.Part_sampled, 1, 178);
-         clear bugdata
+%%
+ script_compile_plant3
+      plantST = metacommunity( Tplant2{:,:}, Tplant{:, {'Sitecode', 'Monthcode'}} , 'mean') ;
+        %% weighted bugdata
+        rbugdata = bugdata ./ repmat(Tplant.Part_sampled, 1, 178); % row
+        vbugdata =   rbugdata ./ repmat(Tplant.Volume, 1, 178); % volume adjusted
+         clear bugdata rbugdata
 %% Guilds
-  [guildmat, guildlist] = Spp2Guild(wbugdata, Tguildtaxon.guildcode2, [0]);    % ignore guild 0      
-  [taxonmat, taxonlist] = Spp2Guild(wbugdata, Tguildtaxon.taxon2, [0]);
+  [guildmat, guildlist] = Spp2Guild(vbugdata, Tguildtaxon.guildcode2, [0]);    % ignore guild 0      
+  [taxonmat, taxonlist] = Spp2Guild(vbugdata, Tguildtaxon.taxon2, [0]);
 
 %% metacommunity and transformation
     [t_matST, t_infoST] = metacommunity( taxonmat, Tplant{:, {'Sitecode', 'Monthcode'}} ) ;
@@ -28,9 +32,7 @@
 %% DATA transformation 
         g_LdataST= log10(g_matST+1);
         t_LdataST= log10(t_matST+1);
-%%
- script_compile_plant3
-      plantST = metacommunity( Tplant2{:,:}, Tplant{:, {'Sitecode', 'Monthcode'}} , 'mean') ;
+
 %%
     Tplant2name = readtable('data/csvdata/plant_variables.csv', 'ReadVariableNames', true);
      Tplant2name.transformation{6} = '';
