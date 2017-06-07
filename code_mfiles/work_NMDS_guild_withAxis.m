@@ -31,29 +31,29 @@ figure
 clmap = flipud(colormap('parula'));
 bwmap = flipud( colormap('gray'));
 guildname =Tguildname{2:11,2}';
-
+%%
  figure 
- temp = guildname([1:7 9]); temp{1} = ' '; temp{2} = ' '; temp{7} = ' '; temp{6} = ' ';
- [h1] =  plot_NMDS2(mds_2.scores, vec([1:7 9],:), ...
+ temp = guildname([1:10]); temp{1} = ' '; temp{4} = ' '; temp{6} = ' '; temp{7} = ' '; temp{9} = ' '; temp{10} = ' ';
+ [h1] =  plot_NMDS2(mds_2.scores, vec([1:10],:), ...
                                    latitudeST,  [], bwmap(12:end,:), ...
                                    temp, 2);
-            s = 1; mytext(vec(s,1), vec(s,2), guildname(s),12, 8) ;                   
-            s = 2; mytext(vec(s,1), vec(s,2), guildname(s),12, 2) ;   
-            s = 7; mytext(vec(s,1), vec(s,2), guildname(s),12, 9) ;     
-            s = 6; mytext(vec(s,1), vec(s,2), guildname(s),12, 6) ; 
-            myplot_square([-0.2 0.05], [ -0.2 0.05], 7); hold on
+            s = 1; mytext(vec(s,1), vec(s,2), guildname(s),12, 3) ;                   
+            s = 4; mytext(vec(s,1), vec(s,2), [guildname{s} '  '],12, 6) ;   
+            s = 6; mytext(vec(s,1), vec(s,2), guildname(s),12, 8) ;     
+            s = 9; mytext(vec(s,1), vec(s,2), guildname(s),12, 1) ; 
+            myplot_square([-0.05 0.3], [ -0.05 0.3], 7); hold on
                ylabel(h1{3}, 'Latitude', 'fontsize', 16);
           %  xlabel('NMDS 1')
           %  ylabel('NMDS 2')
 % Add and inset            
-axes('Position',[.6 .6 .28 .28])
+axes('Position',[0.21  0.18 .28 .28]);
 box off
- s = 8 ; myplot_vec(vec(s,1), vec(s,2), guildname(s),[], [], 1);
- s = 10 ; myplot_vec(vec(s,1), vec(s,2), guildname(s),[], [],1);
-         axis([-0.2  0.05  -0.2  0.05])
-            myplot_square([-0.2 0.05], [ -0.2 0.05], 7);
+ s = 7 ; myplot_vec(vec(s,1), vec(s,2), '',[], [], 1); mytext(vec(s,1), vec(s,2), [guildname{s} ' '],12, 3) ;    
+ s = 10 ; myplot_vec(vec(s,1), vec(s,2), '',[], [],1);mytext(vec(s,1), vec(s,2), [' ' guildname{s}],12, 7) ;    
+         axis([-0.05  0.3  -0.05  0.3])
+            myplot_square([-0.05 0.3], [ -0.05 0.3], 7);
          hline(0, 7,':'); vline(0, 7,':');         
-%
+%%
 figure
          [h1,y] =  plot_NMDS2(mds_2.scores, [], num2month(g_infoST(:,2)) , [1.5 17 7]);  hold on
 %%          

@@ -56,8 +56,16 @@
                 end
         end
   %%
-  if p >= 0.0001
-        pstring =  ['p =',  num2str(p, 2)];
-  else
-        pstring =  'p <  0.0001';
-  end
+    pstr = pstring(p);
+ if   ismissing(model)
+    pstr = '';
+ end
+%%
+ tab{row, 1} = ystr;
+tab{row, 2}  = modelString(mdls, '~');
+tab{row, 3}  = num2str(mdls.Rsquared.Adjusted, 2 );
+tab{row, 4}  = pstring( mdls.coefTest);
+if   ismissing(model)
+    tab{row, 3}  = 'N/A'; 
+    tab{row, 4}  = 'N/A';
+end

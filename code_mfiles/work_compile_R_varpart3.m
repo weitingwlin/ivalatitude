@@ -6,21 +6,17 @@ clear;clc
 work_compile3
 
 %% compiling, tranforming the plant data
-    plantdata = Tplant{:,[5,6,8,11,12, 17,18, 19]};
-    plantdatanames = tnames(Tplant(:,[5,6,8,11,12, 17,18, 19]));
+    plantdata = Tplant2{:,[1,2, 4,5,7,8]};
+    plantdatanames = Tplant2(:,[1,2, 4,5,7,8]).Properties.VariableNames;
             Lplant = plantdata; 
-            Lplant( :, [1 2 6 7] ) = log( plantdata( :, [ 1 2  6 7 ] ) + 1 );
-            Lplant( :, [4 5] ) = asin( sqrt( Lplant( :, [4 5] ) ./ 30 ) );
-
             % graph  with `work_explore_plant` to see justification 
 %% guild data
   %  [guildmat, guildlist] = Spp2Guild( bugdata, guild2, 0 );
 %% month, latitude info
-    info = [Tplant.Monthcode, Tsite.decimallatitude(Tplant.Sitecode)];
+    info = [Tsite.decimallatitude(Tplant.Sitecode), Tplant.Monthcode];
 %% summing sample data to a site-month scales
     [LplantST] = metacommunity( Lplant, Tplant{:, {'Sitecode', 'Monthcode'}}, 'mean' ) ;
-   % [t_matST, t_infoST] = metacommunity( taxonmat, sampledata(:, [1, 2] ) ) ; % left the transformation (if any) to R
-   % [g_matST, g_infoST] = metacommunity( guildmat, sampledata(:, [1, 2] ) ) ;
+
 %% remove the datarow with NAN
              ind_in = find(any(isnan(plantdata), 2)==0); % index of "in" data
 %% write to csv

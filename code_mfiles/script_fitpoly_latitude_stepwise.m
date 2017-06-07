@@ -4,9 +4,9 @@
                myplot(Xdata(indm), Ydata(indm), 'S', mstyle(m-5), m-5); hold on            
   end
 %%   
-   temptab = array2table([Ydata, Xdata,  mdata], 'Variablenames', {name, 'lat', 'month'});
+   temptab = array2table([Ydata, Xdata,  mdata], 'Variablenames', {index, 'lat', 'month'});
 %%
-   mdls = stepwiselm( temptab, [name ' ~ lat + lat^2 + month'],  'Criterion', 'aic');
+   mdls = stepwiselm( temptab, [index ' ~ lat + lat^2 + month'],  'Criterion', 'aic');
           x =  mdls.CoefficientNames;
           
           candidate = {'lat', 'lat^2', 'month', 'lat:month' , 'lat^2:month' };
@@ -60,8 +60,24 @@
                 end
         end
 %%
-pstr = pstring(p);
+pstr = pstring(p, [], 2);
 if   ismissing(model)
     pstr = '';
-    model = '(intersept)';
+   % model = '(intersept)';
 end
+%% fill in table
+tab{row, 1} = type;
+tab{row, 2} = index;
+tab{row, 3}  = modelString(mdls, '~');
+tab{row, 4}  = num2str(mdls.Rsquared.Adjusted, 2 );
+tab{row, 5}  = pstring( mdls.coefTest);
+if   ismissing(model)
+    tab{row, 4}  = 'N/A'; 
+    tab{row, 5}  = 'N/A';
+end
+
+%%
+      xlim([30 43])
+            xlabel('latitude', 'fontsize', 20); 
+               title({pstr}, 'fontsize', 16);
+                ylabel({[ type,' '], index}, 'fontsize', 20);

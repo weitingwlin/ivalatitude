@@ -3,7 +3,7 @@
     work_compile3
 %% aphid abundance
 ind_aphid = any(repmat(Tguildtaxon.taxon2, 1,2) == repmat([46, 48], 178,1), 2);
-aphidST = metacommunity( sum(wbugdata(:, ind_aphid), 2), ...
+aphidST = metacommunity( sum(vbugdata(:, ind_aphid), 2), ...
                                         Tplant{:, {'Sitecode', 'Monthcode'}}); 
 %%  
 [Y,I2] = sort( Tsite.decimallatitude ); % site 3 at lowest latitude
@@ -24,7 +24,7 @@ guildstr = 'aphid';
     subg = log10( aphidST + 1);
     script_fitpoly_1or2    
              xlabel('Latitude');
-            ylabel('log_1_0(N + 1)');       
+            ylabel({'Density (ind./m^2)','log_1_0(N + 1)'});      
                title({['p =',  num2str(p,3)], model, ''}, 'fontsize', 10);
              %   title(guildstr);
             axis([30 43 0 ceil(max(subg))]);

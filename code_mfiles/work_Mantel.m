@@ -1,3 +1,5 @@
+%% now combined to `work_Mantel_other_index.m`
+ 
 %% load data
 clear;clc
 work_compile3

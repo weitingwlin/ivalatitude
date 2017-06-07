@@ -2,9 +2,9 @@
 %% preparing data
     clear;clc
     work_compile3
-   % mcolor = [12 37 8];
     mstyle = [1.5 17 7];
-    latS = Tsite.decimallatitude;
+    tab = cell(4, 5);
+ 
 
 %% problem with missing sample
 % number of sample
@@ -14,46 +14,48 @@
      mdata= t_infoST(nsample ~= 4,2);
 %% richness
 figure
-   
-    mysubplot(1, 5, 0, 'Richness')
-    name = 'richness';    
+    mysubplot(1, 5, 0, 'Richness', 24)
+% taxon richness
+    index = 'Richness';    
+    type = 'Taxon';
     mysubplot(1,7,[2 3 ],'', [],0.1)
             richnessST = sum(  t_matST > 0, 2);    
             Ydata =  richnessST(nsample ~= 4);          
+            row = 1;
         script_fitpoly_latitude_stepwise         
-            xlim([30 43])
-            xlabel('latitude'); ylabel({'Taxon',name});
-              title({pstr, model, ''}, 'fontsize', 10);
+        
 %  guild richness
+    type = 'Guild';
    mysubplot(1,7,[5 6],'', [], 0.1)
             g_richnessST = sum(  g_matST > 0, 2);
             Ydata =  g_richnessST(nsample ~= 4); 
+            row = 2;
         script_fitpoly_latitude_stepwise         
-            xlim([30 43])
-            xlabel('latitude'); ylabel({'Guild',name});
-               title({pstr, model, ''}, 'fontsize', 10);
+      
+
 %% diversity (Shannon)
 figure
-mysubplot(1, 5, 0, 'Shannon diversity')
- name = 'Shannon';    
+mysubplot(1, 5, 0, 'Shannon diversity', 24)
+    index = 'Diversity';    
+    type = 'Taxon';   
     shannonST = D_ind_shannon(t_matST);
-   % Xdata = Tsite.decimallatitude;   
-    % plot by month
     mysubplot(1,7,[2 3],'', [], 0.1)
-         Ydata = shannonST(nsample ~= 4);
-           script_fitpoly_latitude_stepwise         
-            xlim([30 43])
+           Ydata = shannonST(nsample ~= 4);
+           row = 3;
+           script_fitpoly_latitude_stepwise        
            
-   xlabel('latitude'); ylabel({'Taxon', 'Shannon diversity'});
-  %  title({['p =',  num2str(p,3)], model, ''}, 'fontsize', 10);
-   title({pstr, model, ''}, 'fontsize', 10);
+ %  ylabel({'Taxon', 'Shannon diversity'}, 'fontsize', 20);
+  
    %%%%%%
-
+        type = 'Guild';
       mysubplot(1,7,[5 6],'', [], 0.1)
          g_shannonST = D_ind_shannon(g_matST);
-    Ydata =g_shannonST(nsample ~= 4);
-  script_fitpoly_latitude_stepwise         
-            xlim([30 43])
-
-   xlabel('latitude'); ylabel({'Guild', 'Shannon diversity'});
-   title({pstr, model, ''}, 'fontsize', 10);
+         Ydata =g_shannonST(nsample ~= 4);
+         row = 4;
+        script_fitpoly_latitude_stepwise         
+    
+      %  ylabel({'Guild', 'Shannon diversity'}, 'fontsize', 20);
+%%
+   tab = cell2table(tab, 'VariableNames', {'Type', 'Index',  'Model', 'adjRsquare', 'p'});
+   writetable(tab, 'diversity.csv')
+ 

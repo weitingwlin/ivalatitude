@@ -6,6 +6,7 @@ work_compile3
  %% simulation of null model
  rng(1)
  it = 10000; %Elapsed time is 9318.111275 seconds for 10000 iteration with parfor
+ nullrlatEuc = zeros(1, it);    nullrmonEuc = zeros(1, it); nullmeanEuc = zeros(1, it);
  nullrlatMRS = zeros(1, it);    nullrmonMRS = zeros(1, it); nullmeanMRS = zeros(1, it);
  nullrlatSIM = zeros(1, it);    nullrmonSIM = zeros(1, it);  nullmeanSIM = zeros(1, it);
  nullrlatNES = zeros(1, it);    nullrmonNES = zeros(1, it);  nullmeanNES = zeros(1, it);
@@ -15,8 +16,13 @@ work_compile3
  parfor i = 1 : it
     % making null guilds 
         nullguild = datasample( Tguildtaxon.guildcode2, height(Tguildtaxon), 'Replace', false);
-        [nullguildmat, guildlist] = Spp2Guild(wbugdata, nullguild, [0]);
+        [nullguildmat, guildlist] = Spp2Guild(vbugdata, nullguild, [0]);
         [nullg_matST, g_infoST] = metacommunity( nullguildmat, Tplant{:, {'Sitecode', 'Monthcode'}} ) ;
+    % Euclidean
+             diss = pdist(log(nullg_matST+1));
+        nullrlatEuc(i) = f_mantel(squareform(diss ),  squareform(pdist(latitudeST )), 0, 1);
+        nullrmonEuc(i) = f_mantel(squareform(diss ),  squareform(pdist(monthST)), 0, 1);
+        nullmeanEuc(i) = mean(diss );
     % calculate mean rank shift
         betaMSR = squareform(betaMRS_pairwise(nullg_matST) );
         nullmeanMRS(i) = mean(betaMSR(:));  
@@ -35,7 +41,16 @@ work_compile3
         nullrmonSOR(i)  = f_mantel(squareform(betaNES.psor),  squareform(pdist(monthST )), 0, 1);
  end
  toc
-
+%% Euclidean
+indexstr = 'Euclidean';
+  [r] = f_mantel(squareform(pdist(log(g_matST+1))),  squareform(pdist([latitudeST ])), 0, 1);
+  nullr = nullrlatEuc;
+  r2 = f_mantel(squareform(pdist(log(g_matST+1))),  squareform(pdist(monthST)), 0, 1);
+  nullr2 = nullrmonEuc;
+  d  = mean(pdist(log(g_matST+1)));
+  nulld =  nullmeanEuc;
+  
+    script_mantel_null_plot
 %% inference MSR
   betaMSR = squareform(betaMRS_pairwise(g_matST) );
         d = mean(betaMSR(:));
@@ -65,7 +80,7 @@ work_compile3
 % disp( ['spatial-autocorrelation (SIM), p = ' num2str( pval(r,  nullrlatSIM) )])
 % disp( ['temporal-autocorrelation (SIM), p = ' num2str( pval(r2,  nullrmonSIM) )])
 % plot  
-  indexstr = 'Nestedness';
+  indexstr = 'Simpson';
  % ytop = 2500;
   script_mantel_null_plot
 %%
@@ -79,7 +94,7 @@ work_compile3
   %  disp( ['spatial-autocorrelation (NES), p = ' num2str( pval(r,  nullrlatNES) )])
   %  disp( ['temporal-autocorrelation (NES), p = ' num2str( pval(r2,  nullrmonNES) )])
   % plot  
-  indexstr = 'Simpson';
+  indexstr = 'Nestness';
   %ytop = 2500
   script_mantel_null_plot
 %% Sorenson

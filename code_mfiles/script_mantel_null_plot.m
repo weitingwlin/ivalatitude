@@ -8,13 +8,16 @@ figure
  % ylim([0 ytop])
   title( ['p = ' num2str( p )] )
   mysubplot(1,3,2)
-  p = pval(r,  nullr, 1,1); 
+  p1 = pval(r,  nullr, 1,1); 
   xlabel('Spatial autocorrelation (r)')
   %  ylim([0 ytop])
-  title( ['p = ' num2str( p )] )
+  title( ['p = ' num2str( p1 )] )
   mysubplot(1,3,3)
-  [p,~, h] = pval(r2,  nullr2, 1,1); 
+  [p2,~, h] = pval(r2,  nullr2, 1,1); 
   xlabel('temporal autocorrelation (r)')
-  title( ['p = ' num2str( p )] )
+  title( ['p = ' num2str( p2 )] )
   %
-  clear p d r r2 nulld nullr nullr2 ytop
+ disp(['Latitudinal ', indexstr , ' (guild; permutation) :    ', pstring(p1) ])
+ disp(['Temporal ', indexstr , ' (guild; permutation) :      ', pstring(p2) ])
+  
+  clear p1 p2 d r r2 nulld nullr nullr2 ytop

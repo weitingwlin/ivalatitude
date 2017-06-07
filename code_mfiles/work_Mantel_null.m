@@ -13,7 +13,7 @@ work_compile3
  parfor i=1:it
      %  making pseudo-guild
         nullguild = datasample( Tguildtaxon.guildcode2, height(Tguildtaxon), 'Replace', false);
-        [nullguildmat, guildlist] = Spp2Guild(wbugdata, nullguild, [0]);
+        [nullguildmat, guildlist] = Spp2Guild(vbugdata, nullguild, [0]);
         [nullg_matST, g_infoST] = metacommunity( nullguildmat, Tplant{:, {'Sitecode', 'Monthcode'}} ) ;
      %  calculating dissimilarity
         diss = pdist(log(nullg_matST+1));
@@ -27,7 +27,7 @@ work_compile3
 % save Mantel_null nullrlat nullrmon nullplat nullpmon
  
 %%
-  r = f_mantel(squareform(pdist(log(g_matST+1))),  squareform(pdist([latitudeST ])), 0, 1);
+  [r] = f_mantel(squareform(pdist(log(g_matST+1))),  squareform(pdist([latitudeST ])), 0, 1);
   nullr = nullrlat;
   r2 = f_mantel(squareform(pdist(log(g_matST+1))),  squareform(pdist(monthST)), 0, 1);
   nullr2 = nullrmon;
