@@ -12,7 +12,7 @@ computer <- Sys.info()["nodename"]
 
 if(grepl(computer, "weitingdeAir")){
   
-#  setwd("/Users/weitinglin/Dropbox/PhD_projects/iva_latitude/code_rfiles")
+  setwd("/Users/weitinglin/Dropbox/PhD_projects/iva_latitude/code_rfiles")
   
 }else { 
   if(grepl(computer, "WLIN_PC")){

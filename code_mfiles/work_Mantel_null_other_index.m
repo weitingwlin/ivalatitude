@@ -17,7 +17,8 @@ work_compile3
     % making null guilds 
         nullguild = datasample( Tguildtaxon.guildcode2, height(Tguildtaxon), 'Replace', false);
         [nullguildmat, guildlist] = Spp2Guild(vbugdata, nullguild, [0]);
-        [nullg_matST, g_infoST] = metacommunity( nullguildmat, Tplant{:, {'Sitecode', 'Monthcode'}} ) ;
+        [nullg_matST, g_infoST] = metacommunity( nullguildmat, Tplant{:, {'Sitecode', 'Monthcode'}}, mean ) ;
+         nullg_matST = nullg_matST(ind,: ); 
     % Euclidean
              diss = pdist(log(nullg_matST+1));
         nullrlatEuc(i) = f_mantel(squareform(diss ),  squareform(pdist(latitudeST )), 0, 1);

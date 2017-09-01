@@ -1,5 +1,5 @@
  % prepare data 
-  Xname = {Tplant2name.x__{iX}, [Tplant2name.transformation{iX}]};
+  Xname = {Tplant2name.X{iX}, [Tplant2name.transformation{iX}]};
 
   % making scatter plot
   

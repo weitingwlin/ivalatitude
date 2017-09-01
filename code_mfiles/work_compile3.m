@@ -23,9 +23,16 @@
   [taxonmat, taxonlist] = Spp2Guild(vbugdata, Tguildtaxon.taxon2, [0]);
 
 %% metacommunity and transformation
-    [t_matST, t_infoST] = metacommunity( taxonmat, Tplant{:, {'Sitecode', 'Monthcode'}} ) ;
+    [t_matST, t_infoST] = metacommunity( taxonmat, Tplant{:, {'Sitecode', 'Monthcode'}}) ;
     [g_matST, g_infoST] = metacommunity( guildmat, Tplant{:, {'Sitecode', 'Monthcode'}} ) ;
-
+ %    [t_matSTmean, t_infoST] = metacommunity( taxonmat, Tplant{:, {'Sitecode', 'Monthcode'}}, 'mean' ) ;
+%    [g_matSTmean, g_infoST] = metacommunity( guildmat, Tplant{:, {'Sitecode', 'Monthcode'}}, 'mean' ) ;
+ nsample = metacommunity(guildmat,Tplant{:, {'Sitecode', 'Monthcode'}} , 'count'); 
+ind = nsample >=7;
+t_matST = t_matST(ind,: );  t_infoST = t_infoST(ind,:);
+g_matST = g_matST(ind,: );  g_infoST = g_infoST(ind,:);
+% t_matSTmean = t_matSTmean(ind,:);
+% g_matSTmean = g_matSTmean(ind,:);
     % month and latitude data for metacommunity at sites scale
      monthST = t_infoST(:,2); 
      latitudeST =  Tsite{t_infoST(:,1),{'decimallatitude'}};

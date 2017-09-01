@@ -8,13 +8,15 @@ work_compile3
  nullrlat = zeros(1, it);
    nullrmon = zeros(1, it);
     nullrmean = zeros(1, it);
+    
 %%
   tic
  parfor i=1:it
      %  making pseudo-guild
         nullguild = datasample( Tguildtaxon.guildcode2, height(Tguildtaxon), 'Replace', false);
         [nullguildmat, guildlist] = Spp2Guild(vbugdata, nullguild, [0]);
-        [nullg_matST, g_infoST] = metacommunity( nullguildmat, Tplant{:, {'Sitecode', 'Monthcode'}} ) ;
+        [nullg_matST, g_infoST] = metacommunity( nullguildmat, Tplant{:, {'Sitecode', 'Monthcode'}}) ;
+        nullg_matST = nullg_matST(ind,: ); % t_infoST = t_infoST(ind,:);
      %  calculating dissimilarity
         diss = pdist(log(nullg_matST+1));
      % record mean and spatial, temporal autocorrelation

@@ -1,0 +1,118 @@
+---
+title: "partial RDA test"
+output: md_notebook
+---
+##### load libraries
+
+```{r, echo = FALSE}
+#   install.packages("vegan")
+library("vegan")
+```
+
+##### load data
+
+```{r}
+source("loadData.R")
+```
+###
+
+```{r}
+df <- data.frame(scale = c("Plant", "Plant", "Site", "Site"), 
+                 type = c("Taxon", "Guild", "Taxon", "Guild"), 
+                 Environment = rep(NA, 4), 
+                 Latitude = rep(NA, 4), 
+                 Month = rep(NA, 4)
+                 )
+```
+
+### Pure effect of microenvironment
+
+```{r}
+# (plant scale; taxon)
+rda.result <- rda(Yt_PL, Y = Xe_PL, z = Xs_PL)
+anovaPL_TaxonE <- anova(rda.result, step=200, perm.max=200)
+# (plant scale; guild)
+rda.result <- rda(Yg_PL, Y = Xe_PL, z = Xs_PL)
+anovaPL_GuildE <- anova(rda.result, step=200, perm.max=200)
+# (site scale; taxon)
+rda.result <- rda(Yt_ST, Y = Xe_ST, z = Xs_ST)
+anovaST_TaxonE <- anova(rda.result, step=200, perm.max=200)
+# (site scale; guild)
+rda.result <- rda(Yg_ST, Y = Xe_ST, z = Xs_ST)
+anovaST_GuildE <- anova(rda.result, step=200, perm.max=200)
+
+```
+
+The effect of environment was significant at both scales in guild and taxon-based communities
+
+```{r}
+df$Environment[1] <-paste( 'p = ', anovaPL_TaxonE$`Pr(>F)`[1])
+df$Environment[2] <-paste( 'p = ', anovaPL_GuildE$`Pr(>F)`[1])
+df$Environment[3] <-paste( 'p = ', anovaST_TaxonE$`Pr(>F)`[1])
+df$Environment[4] <-paste( 'p = ', anovaST_GuildE$`Pr(>F)`[1])
+```
+
+### Pure effect of latitude (controled for microenvironment)
+(plant scale)
+```{r}
+# (plant scale; taxon)
+rda.result <- rda(Yt_PL, Y = Xs_PL$Latitude, z = Xe_PL)
+anovaPL_Taxon <- anova(rda.result, step=200, perm.max=200)
+# (plant scale; guild)
+rda.result <- rda(Yg_PL, Y = Xs_PL$Latitude, z = Xe_PL)
+anovaPL_Guild <- anova(rda.result, step=200, perm.max=200)
+# (site scale; taxon)
+rda.result <- rda(Yt_ST, Y = Xs_ST$Latitude, z = Xe_ST)
+anovaST_Taxon <- anova(rda.result, step=200, perm.max=200)
+# (site scale; guild)
+rda.result <- rda(Yg_ST, Y = Xs_ST$Latitude, z = Xe_ST)
+anovaST_Guild <- anova(rda.result, step=200, perm.max=200)
+
+```
+(save p value in df)
+```{r}
+df$Latitude[1] <- paste( 'p = ', anovaPL_Taxon$`Pr(>F)`[1])
+df$Latitude[2] <- paste( 'p = ', anovaPL_Guild$`Pr(>F)`[1])
+df$Latitude[3] <- paste( 'p = ', anovaST_Taxon$`Pr(>F)`[1])
+df$Latitude[4] <- paste( 'p = ', anovaST_Guild$`Pr(>F)`[1])
+```
+
+### Pure effect of Month (controled for microenvironment)
+(plant scale)
+```{r}
+# (plant scale; taxon)
+result <- rda(Yt_PL, Y = Xs_PL$Month, z = Xe_PL)
+anovaPL_Taxon <- anova(result, step=200, perm.max=200)
+# (plant scale; guild)
+result <- rda(Yg_PL, Y = Xs_PL$Month, z = Xe_PL)
+anovaPL_Guild <- anova(result, step=200, perm.max=200)
+# (site scale; taxon)
+result <- rda(Yt_ST, Y = Xs_ST$Month, z = Xe_ST)
+anovaST_Taxon <- anova(result, step=200, perm.max=200)
+# (site scale; guild)
+result <- rda(Yg_ST, Y = Xs_ST$Month, z = Xe_ST)
+anovaST_Guild <- anova(result, step=200, perm.max=200)
+
+```
+(save p value in df)
+
+```{r}
+Xs_ST$Month
+```
+
+
+```{r}
+df$Month[1] <- paste( 'p = ', anovaPL_Taxon$`Pr(>F)`[1])
+df$Month[2] <- paste( 'p = ', anovaPL_Guild$`Pr(>F)`[1])
+df$Month[3] <- paste( 'p = ', anovaST_Taxon$`Pr(>F)`[1])
+df$Month[4] <- paste( 'p = ', anovaST_Guild$`Pr(>F)`[1])
+```
+
+
+## view table and export
+```{r}
+df
+write.csv(df, file = "pRDA.csv")
+
+```
+

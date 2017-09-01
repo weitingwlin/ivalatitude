@@ -7,8 +7,8 @@
 
     mymap =     flipud(parula);
 %%
-plantscale = zeros(8, 10);
-sitescale = zeros(8,10);
+plantscale = zeros(6, 10);
+sitescale = zeros(6,10);
 %% making residual guild  matrix
     latitudeSample = Tsite.decimallatitude(Tplant.Sitecode); 
     monthSample =  Tplant.Monthcode;
@@ -22,8 +22,11 @@ for iY = 1: 7 % guild
         resT = [resT, residST];
 end
  %%
- mycorrplot_2(resT, Tplant2,Tguildname.camel(2:8), Tplant2.Properties.VariableNames, 'B', [1 0 0]);
- mysubplot(1, 8, 0, {'Guild residual v.s. plant variables', 'Plant scale'})
+ mycorrplot_2(resT, Tplant2{:,[1,2,4,5,7,8]},Tguildname.camel(2:8), Tplant2.Properties.VariableNames([1,2,4,5,7,8]), 'B', [1 0 0]);
+ mysubplot(1, 8, 0, {'Guild residual v.s. plant variables', 'Plant scale','partial correlation '})
+ %%
+ mycorrplot_2(guildlog(:,1:7), Tplant2{:,[1,2,4,5,7,8]},Tguildname.camel(2:8), Tplant2.Properties.VariableNames([1,2,4,5,7,8]), 'B', [1 0 0]);
+ mysubplot(1, 8, 0, {'Guild residual v.s. plant  variables', 'Plant scale', 'Correlation'})
 
 %%
         iY = 2; % guild
@@ -51,11 +54,11 @@ end
         resTsite = [resTsite, residST];
  end
  %%
- mycorrplot_2(resTsite, plantST, Tguildname.camel(2:8), Tplant2.Properties.VariableNames, 'B', [1 0 0]);
+ mycorrplot_2(resTsite, plantST(:,[1,2,4,5,7,8]), Tguildname.camel(2:8), Tplant2.Properties.VariableNames([1,2,4,5,7,8]), 'B', [1 0 0]);
  mysubplot(1, 8, 0, {'Guild residual v.s. plant variables', 'Site scale'})
  %%
  for iY = 1:10 % guild
-        for iX = 1:8 % plant variables
+        for iX = [1,2,4,5,7,8] % plant variables
                 X = plantST(:,iX);
                 Y = log(g_matST(:, iY) + 1);
                 %figure
@@ -66,5 +69,5 @@ end
         end
 end     
  %%
-  [im, hcb] = mytable(sitescale, 'blue', 14, [], [],2, 'yellow');
+  [im, hcb] = mytable(round(sitescale, 2), 'blue', 14, [], [],2, 'yellow');
  
