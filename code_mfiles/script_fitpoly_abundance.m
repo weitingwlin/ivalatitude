@@ -31,7 +31,8 @@
                         for m = 6:8
                                         ind = (g_infoST(:,2)==m);
                                         subgm  = subg(ind);
-                                        [xData, yData] = prepareCurveData(Tsite.decimallatitude , subgm );
+                                        sublat = Tsite.decimallatitude(g_infoST(ind,1));
+                                        [xData, yData] = prepareCurveData( sublat  , subgm );
                                        xPrid = linspace(min(xData), max(xData), 100);
                                           Cs = mdls.Coefficients.Estimate; Cs(6) = 0; % a dummy for not
                                        yPrid = Cs(1) + ...

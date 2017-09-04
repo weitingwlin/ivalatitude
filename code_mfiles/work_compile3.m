@@ -35,7 +35,7 @@ g_matST = g_matST(ind,: );  g_infoST = g_infoST(ind,:);
 % g_matSTmean = g_matSTmean(ind,:);
     % month and latitude data for metacommunity at sites scale
      monthST = t_infoST(:,2); 
-     latitudeST =  Tsite{t_infoST(:,1),{'decimallatitude'}};
+     latitudeST =  Tsite{t_infoST(:,1), {'decimallatitude'}};
 %% DATA transformation 
         g_LdataST= log10(g_matST+1);
         t_LdataST= log10(t_matST+1);
