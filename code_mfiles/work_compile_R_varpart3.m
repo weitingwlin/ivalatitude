@@ -3,6 +3,7 @@
 % ` work_compile_R_varpart`
 
 clear;clc
+work_setup
 work_compile3
 
 %% compiling, tranforming the plant data
@@ -30,6 +31,6 @@ csvwrite( [ rdatapath '/Xs_PL.csv'],  info(ind_in, :) ); % time-latitude data, b
 csvwrite( [ rdatapath '/Xs_ST.csv'], [latitudeST   t_infoST(:,2)]); % time-latitude data, sumed over site and time
 
 csvwrite([ rdatapath  '/Xe_PL.csv'], Lplant(ind_in, :)  ); % plant (environment) data, by plant (sample, beat)
-csvwrite([ rdatapath  '/Xe_ST.csv'], LplantST ); % plant data, sumed over site and time
+csvwrite([ rdatapath  '/Xe_ST.csv'], LplantST(ind,:) ); % plant data, sumed over site and time
 
 
