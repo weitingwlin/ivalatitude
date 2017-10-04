@@ -35,7 +35,7 @@ for g = 1:10
                 title(guildstr);
             %     title({pstring, model, ''}, 'fontsize', 14);
             axis([30 43 0 ceil(max(subg)*2)/2]);
-          disp(   [guildstr, model])    
+     %     disp(   [guildstr, model])    
         %  mysubplot(6,1,0, guildstr)
 end
 %%

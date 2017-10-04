@@ -22,12 +22,8 @@
          mlstyle = [3 2 2];
          mstyle = [1.5 17 7];
 %%
-if length(x) > 1
-   model = join(x(2:end), ' + ');
-else
-    model = '(intercept)';
-end
-        if p >= 0.05
+
+        if p >= 0.05 ||  length(x) == 1
             %    model = 'none';
         else   
             %    model = join(x, ' + ');
@@ -62,7 +58,7 @@ end
         end
   %%
     pstr = pstring(p);
- if   ismissing(model)
+ if   length(x) > 1
     pstr = '';
  end
 %%
@@ -70,7 +66,7 @@ end
 tab{row, 2}  = modelString(mdls, '~');
 tab{row, 3}  = num2str(mdls.Rsquared.Adjusted, 2 );
 tab{row, 4}  = pstring( mdls.coefTest);
-if   ismissing(model)
+if    length(x) > 1
     tab{row, 3}  = 'N/A'; 
     tab{row, 4}  = 'N/A';
 end
