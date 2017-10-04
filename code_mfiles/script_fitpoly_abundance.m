@@ -22,7 +22,11 @@
          mlstyle = [3 2 2];
          mstyle = [1.5 17 7];
 %%
+if length(x) > 1
    model = join(x(2:end), ' + ');
+else
+    model = '(intercept)';
+end
         if p >= 0.05
             %    model = 'none';
         else   
