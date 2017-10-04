@@ -25,8 +25,10 @@
          mstyle = [1.5 17 7];
 
  %%
-  model = join(x(2:end), ' + ');
-        if p >= 0.1 ||  ismissing(model)
+
+
+
+        if p >= 0.1 ||  length(x) == 1
              %   model = 'none';
         else   
                % model = join(x, ' + ');
@@ -61,7 +63,7 @@
         end
 %%
 pstr = pstring(p, [], 2);
-if   ismissing(model)
+if  length(x) == 1
     pstr = '';
    % model = '(intersept)';
 end
@@ -71,7 +73,7 @@ tab{row, 2} = index;
 tab{row, 3}  = modelString(mdls, '~');
 tab{row, 4}  = num2str(mdls.Rsquared.Adjusted, 2 );
 tab{row, 5}  = pstring( mdls.coefTest);
-if   ismissing(model)
+if   length(x) == 1
     tab{row, 4}  = 'N/A'; 
     tab{row, 5}  = 'N/A';
 end
