@@ -26,6 +26,10 @@ excel files
 
 * **work\_NMDS\_guild\_withAxis.m**
 
+Add rescaled Armases, galls and miners
+
+* **work\_miner\_gall\_Armases.m**
+
 ### Table2
 
 * **work\_Mantel\_null.m**
@@ -34,7 +38,13 @@ excel files
 
 * **work\_Mantel\_null\_other_index.m** 
 
-### Figure 4 (and Table 3)
+### Figure 3 (and Table 3)
+
+* **work\_abundance\_pattern.m**
+* * **month_legend.m**
+
+
+### Figure 4 (and Table 4)
 
 * **work\_abundance\_pattern.m**
 * * **month_legend.m**

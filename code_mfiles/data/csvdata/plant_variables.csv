@@ -1,1 +1,9 @@
-X,unit,transformationWrack nearby,g / (.25 m)^2,log10(x + 1)Armases nearby,ind./ 4m^2,log10(x + 1)Plant area,m^2,log10(x + 1)Plant volume,m^3,log10(x + 1)Leaf toughness,g,log10(x + 1)Plant height,m,NALeaf galls ratio,count/leaf,asin-sqrtLeaf miners ratio,count/leaf,asin-sqrt
+X,unit,transformation
+Wrack nearby,g / (.25 m)^2,log10(x + 1)
+Armases nearby,ind./ 4m^2,log10(x + 1)
+Plant area,m^2,log10(x + 1)
+Plant volume,m^3,log10(x + 1)
+Leaf toughness,g,log10(x + 1)
+Plant height,m,NA
+Proportion of leaf galls,count/leaf,asin-sqrt
+Proportion of  leaf miners,count/leaf,asin-sqrt

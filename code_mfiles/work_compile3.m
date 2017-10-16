@@ -29,6 +29,7 @@
 %    [g_matSTmean, g_infoST] = metacommunity( guildmat, Tplant{:, {'Sitecode', 'Monthcode'}}, 'mean' ) ;
  nsample = metacommunity(guildmat,Tplant{:, {'Sitecode', 'Monthcode'}} , 'count'); 
 ind = nsample >=7;
+infoST = t_infoST; % preserve the information from the 45 site-month 
 t_matST = t_matST(ind,: );  t_infoST = t_infoST(ind,:);
 g_matST = g_matST(ind,: );  g_infoST = g_infoST(ind,:);
 % t_matSTmean = t_matSTmean(ind,:);

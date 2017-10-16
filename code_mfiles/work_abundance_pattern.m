@@ -29,7 +29,7 @@ for g = 1:10
     script_fitpoly_abundance
     
             xlabel('Latitude');
-            ylabel({'Density (ind./m^2)','log_1_0(N + 1)'});
+            ylabel({'Density (ind./m^3)','log_1_0(N + 1)'});
             
       
                 title(guildstr);
