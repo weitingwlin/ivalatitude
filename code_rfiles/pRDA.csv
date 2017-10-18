@@ -1,5 +1,0 @@
-"","scale","type","Environment","Latitude","Month"
-"1","Plant","Taxon","p =  0.007","p =  0.01","p =  0.001"
-"2","Plant","Guild","p =  0.002","p =  0.248","p =  0.001"
-"3","Site","Taxon","p =  0.002","p =  0.089","p =  0.001"
-"4","Site","Guild","p =  0.001","p =  0.371","p =  0.001"

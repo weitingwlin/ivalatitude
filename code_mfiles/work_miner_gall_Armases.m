@@ -15,7 +15,7 @@
 %% 1. Add as morpho-species
         % use number of leaves out of  30  rescaled
         % log(n+1) transform
-        t_LdataST = log10(t_matST + 1);
+       % t_LdataST = log10(t_matST + 1);
         LAgmST = [log10(AgmST(:, 1) + 1)  asin(sqrt(AgmST(:, [2 3]) ./ 240))];
         % rescale the transformed data
           t_LdataST_rs = ( t_LdataST - mean(t_LdataST(:)) ) ./  std(t_LdataST(:));
@@ -60,7 +60,7 @@ end
      % use number of leaves out of  30  as arbitury scale
       %  g_matST_gm = [g_matST,   gallminerST ];
         % log(n+1) transform
-         g_LdataST = log10(g_matST + 1);
+        % g_LdataST = log10(g_matST + 1);
          % rescale the transformed data
           g_LdataST_rs = ( g_LdataST - mean(g_LdataST(:)) ) ./  std(g_LdataST(:));
   
